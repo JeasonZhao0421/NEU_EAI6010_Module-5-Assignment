@@ -80,3 +80,16 @@ plt.xlabel('Model')
 plt.ylabel('Accuracy')
 plt.title('Accuracy Comparison between ULMFiT and Naive Bayes')
 plt.show()
+
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.json
+    text = data.get("text", "")
+    return jsonify({"sentiment": "Positive"})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)

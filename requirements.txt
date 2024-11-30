@@ -1,9 +1,7 @@
 flask
 joblib
 scikit-learn
-fastai
 pandas
 uvicorn
-pandas
 numpy
-torch
+torch==2.0.0+cpu

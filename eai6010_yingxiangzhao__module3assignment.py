@@ -8,8 +8,7 @@ Original file is located at
 """
 
 # Install required libraries
-!pip install -U fastai
-!pip install scikit-learn pandas
+from fastai.text.all import *
 
 import pandas as pd
 from sklearn.model_selection import train_test_split

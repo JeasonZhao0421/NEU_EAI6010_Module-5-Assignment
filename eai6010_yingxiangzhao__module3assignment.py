@@ -17,8 +17,14 @@ from fastai.text.all import *
 import matplotlib.pyplot as plt
 
 # Load train and test data with specified encoding
-train_df = pd.read_csv('Corona_NLP_train.csv', encoding='ISO-8859-1')
-test_df = pd.read_csv('Corona_NLP_test.csv', encoding='ISO-8859-1')
+for chunk in pd.read_csv('Corona_NLP_train.csv', encoding='ISO-8859-1', chunksize=1000):
+    process_chunk(chunk)
+for chunk in pd.read_csv('Corona_NLP_test.csv', encoding='ISO-8859-1', chunksize=1000):
+    process_chunk(chunk)
+
+import gc
+del train_df, test_df
+gc.collect()
 
 # Display the first few rows of the dataset
 train_df.head()

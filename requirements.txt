@@ -2,7 +2,6 @@ flask
 uvicorn
 joblib
 scikit-learn
-fastai>=2.7
 torch>=2.0
 torchvision>=0.15
 pandas

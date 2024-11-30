@@ -1,5 +1,9 @@
-flask==3.0.3
-uvicorn==0.22.0
-pandas==2.2.2
-scikit-learn==1.5.2
-torch==2.0.1+cpu 
+flask
+uvicorn
+joblib
+scikit-learn
+fastai>=2.7
+torch>=2.0
+torchvision>=0.15
+pandas
+numpy

@@ -18,16 +18,9 @@ from sklearn.metrics import accuracy_score, classification_report
 from fastai.text.all import *
 import matplotlib.pyplot as plt
 
-import kagglehub
-
-# Download latest version
-path = kagglehub.dataset_download("datatattle/covid-19-nlp-text-classification")
-
-print("Path to dataset files:", path)
-
 # Load train and test data with specified encoding
-train_df = pd.read_csv('/root/.cache/kagglehub/datasets/datatattle/covid-19-nlp-text-classification/versions/1/Corona_NLP_train.csv', encoding='ISO-8859-1')
-test_df = pd.read_csv('/root/.cache/kagglehub/datasets/datatattle/covid-19-nlp-text-classification/versions/1/Corona_NLP_test.csv', encoding='ISO-8859-1')
+train_df = pd.read_csv('Corona_NLP_train.csv', encoding='ISO-8859-1')
+test_df = pd.read_csv('Corona_NLP_test.csv', encoding='ISO-8859-1')
 
 # Display the first few rows of the dataset
 train_df.head()

@@ -3,3 +3,7 @@ joblib
 scikit-learn
 fastai
 pandas
+uvicorn
+pandas
+numpy
+torch

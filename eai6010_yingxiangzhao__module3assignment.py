@@ -41,6 +41,10 @@ def predict():
 def home():
     return "Welcome to the Sentiment Analysis API! Use /predict to get predictions."
 
+@app.errorhandler(404)
+def not_found(e):
+    return jsonify({"error": "Endpoint not found"}), 404
+
 if __name__ == "__main__":
     # Run the Flask app on port 5000
     app.run(host="0.0.0.0", port=5000)

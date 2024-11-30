@@ -37,6 +37,10 @@ def predict():
     prediction = nb_model.predict(text_vectorized)[0]  # Predict sentiment
     return jsonify({"sentiment": int(prediction)})
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Welcome to the Sentiment Analysis API! Use /predict to get predictions."
+
 if __name__ == "__main__":
     # Run the Flask app on port 5000
     app.run(host="0.0.0.0", port=5000)

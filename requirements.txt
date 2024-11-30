@@ -3,4 +3,4 @@ joblib
 scikit-learn
 fastai
 pandas
-torch==2.0.1+cpu
+

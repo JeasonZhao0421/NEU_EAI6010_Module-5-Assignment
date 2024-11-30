@@ -8,8 +8,6 @@ Original file is located at
 """
 
 # Install required libraries
-from fastai.text.all import *
-
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer

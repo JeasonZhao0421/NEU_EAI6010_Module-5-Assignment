@@ -3,6 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 from flask import Flask, request, jsonify
+import joblib
 
 # Load data in chunks and combine into a single DataFrame
 train_df = pd.concat([chunk for chunk in pd.read_csv('Corona_NLP_train.csv', encoding='ISO-8859-1', chunksize=1000)])
@@ -20,6 +21,12 @@ X_test_tfidf = vectorizer.transform(test_df['OriginalTweet'])        # Transform
 # Train a Naive Bayes model
 nb_model = MultinomialNB()
 nb_model.fit(X_train_tfidf, train_df['Sentiment'])
+
+joblib.dump(nb_model, 'model.pkl')
+joblib.dump(vectorizer, 'vectorizer.pkl')
+
+nb_model = joblib.load('model.pkl')
+vectorizer = joblib.load('vectorizer.pkl')
 
 # Flask application for serving predictions
 app = Flask(__name__)

@@ -31,6 +31,14 @@ app = Flask(__name__)
 nb_model = joblib.load("model.pkl")
 vectorizer = joblib.load("vectorizer.pkl")
 
+sentiment_mapping = {
+    0: "Negative",
+    1: "Neutral",
+    2: "Positive",
+    3: "Extremely Negative",
+    4: "Extremely Positive"
+}
+
 @app.route("/predict", methods=["POST"])
 def predict():
     try:

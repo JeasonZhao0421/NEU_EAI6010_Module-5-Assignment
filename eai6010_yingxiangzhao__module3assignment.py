@@ -22,27 +22,33 @@ X_test_tfidf = vectorizer.transform(test_df['OriginalTweet'])        # Transform
 # Train a Naive Bayes model
 nb_model = MultinomialNB()
 nb_model.fit(X_train_tfidf, train_df['Sentiment'])
-
-nb_model = joblib.load("model.pkl")
-vectorizer = joblib.load("vectorizer.pkl")
+from flask import Flask, request, jsonify
+import joblib
 
 # Flask application for serving predictions
 app = Flask(__name__)
 
+nb_model = joblib.load("model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
+        # 获取请求中的 JSON 数据
         data = request.get_json()
         if not data or "text" not in data:
-            return jsonify({"error": "Invalid input"}), 400
+            return jsonify({"error": "Invalid input. 'text' field is required."}), 400
 
-        text = data["text"]
-        text_vectorized = vectorizer.transform([text])
-        prediction = nb_model.predict(text_vectorized)[0]
+        # 获取文本并进行向量化
+        sample_text = [data["text"]]
+        vectorized_text = vectorizer.transform(sample_text)
+
+        # 预测并返回结果
+        prediction = nb_model.predict(vectorized_text)[0]
         return jsonify({"sentiment": int(prediction)})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+        
 @app.route("/", methods=["GET"])
 def home():
     return "Welcome to the Sentiment Analysis API! Use /predict to get predictions."

@@ -52,6 +52,10 @@ def home():
 def not_found(e):
     return jsonify({"error": "Endpoint not found"}), 404
 
+@app.errorhandler(Exception)
+def handle_exception(e):
+    return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
     # Run the Flask app on port 5000
     app.run(host="0.0.0.0", port=5000)

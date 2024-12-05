@@ -34,16 +34,17 @@ app = Flask(__name__)
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    """
-    API endpoint for predicting sentiment.
-    Expects JSON input with a 'text' field.
-    Returns predicted sentiment as a JSON response.
-    """
-    data = request.json
-    text = data.get("text", "")
-    text_vectorized = vectorizer.transform([text])  # Vectorize input text
-    prediction = nb_model.predict(text_vectorized)[0]  # Predict sentiment
-    return jsonify({"sentiment": int(prediction)})
+    try:
+        data = request.get_json()
+        if not data or "text" not in data:
+            return jsonify({"error": "Invalid input"}), 400
+
+        text = data["text"]
+        text_vectorized = vectorizer.transform([text])
+        prediction = nb_model.predict(text_vectorized)[0]
+        return jsonify({"sentiment": int(prediction)})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/", methods=["GET"])
 def home():
@@ -59,6 +60,5 @@ def handle_exception(e):
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
-app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

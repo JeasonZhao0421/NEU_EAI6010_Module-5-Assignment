@@ -4,6 +4,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 from flask import Flask, request, jsonify
 import joblib
+import os
 
 # Load data in chunks and combine into a single DataFrame
 train_df = pd.concat([chunk for chunk in pd.read_csv('Corona_NLP_train.csv', encoding='ISO-8859-1', chunksize=1000)])
@@ -59,3 +60,5 @@ def handle_exception(e):
 if __name__ == "__main__":
     # Run the Flask app on port 5000
     app.run(host="0.0.0.0", port=5000)
+
+app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

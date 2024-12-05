@@ -54,9 +54,11 @@ def predict():
         sample_text = [data["text"]]
         vectorized_text = vectorizer.transform(sample_text)
 
-        # 预测并返回结果
+       # 预测并返回结果
         prediction = nb_model.predict(vectorized_text)[0]
-        return jsonify({"sentiment": int(prediction)})
+        sentiment_label = sentiment_mapping[int(prediction)]  # 映射为标签
+
+        return jsonify({"sentiment": sentiment_label})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

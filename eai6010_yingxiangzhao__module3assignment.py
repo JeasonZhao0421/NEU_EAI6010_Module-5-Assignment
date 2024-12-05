@@ -23,9 +23,6 @@ X_test_tfidf = vectorizer.transform(test_df['OriginalTweet'])        # Transform
 nb_model = MultinomialNB()
 nb_model.fit(X_train_tfidf, train_df['Sentiment'])
 
-joblib.dump(nb_model, 'model.pkl')
-joblib.dump(vectorizer, 'vectorizer.pkl')
-
 nb_model = joblib.load("model.pkl")
 vectorizer = joblib.load("vectorizer.pkl")
 

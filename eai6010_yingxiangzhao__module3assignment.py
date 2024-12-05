@@ -34,6 +34,9 @@ vectorizer = joblib.load("vectorizer.pkl")
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
+        app.logger.debug(f"Request path: {request.path}")
+        app.logger.debug(f"Request data: {request.get_json()}")
+
         # 获取请求中的 JSON 数据
         data = request.get_json()
         if not data or "text" not in data:
@@ -48,7 +51,7 @@ def predict():
         return jsonify({"sentiment": int(prediction)})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-        
+
 @app.route("/", methods=["GET"])
 def home():
     return "Welcome to the Sentiment Analysis API! Use /predict to get predictions."
@@ -60,12 +63,6 @@ def not_found(e):
 @app.errorhandler(Exception)
 def handle_exception(e):
     return jsonify({"error": str(e)}), 500
-
-@app.route("/predict", methods=["POST"])
-def predict():
-    app.logger.debug(f"Request path: {request.path}")
-    app.logger.debug(f"Request data: {request.get_json()}")
-    ...
 
 if __name__ == "__main__":
     # Run the Flask app on port 5000

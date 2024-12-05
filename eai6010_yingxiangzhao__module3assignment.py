@@ -61,6 +61,12 @@ def not_found(e):
 def handle_exception(e):
     return jsonify({"error": str(e)}), 500
 
+@app.route("/predict", methods=["POST"])
+def predict():
+    app.logger.debug(f"Request path: {request.path}")
+    app.logger.debug(f"Request data: {request.get_json()}")
+    ...
+
 if __name__ == "__main__":
     # Run the Flask app on port 5000
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
